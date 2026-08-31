@@ -1,0 +1,10 @@
+enum Gender {
+    MALE
+    FEMALE
+    }
+
+enum AccountStatus {
+    ACTIVE
+    DEACTIVATED
+}
+    
