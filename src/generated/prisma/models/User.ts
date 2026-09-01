@@ -49,6 +49,8 @@ export type UserMinAggregateOutputType = {
   cancellationCount: number | null
   accountStatus: $Enums.AccountStatus | null
   isAdmin: boolean | null
+  isDeleted: boolean | null
+  deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -66,6 +68,8 @@ export type UserMaxAggregateOutputType = {
   cancellationCount: number | null
   accountStatus: $Enums.AccountStatus | null
   isAdmin: boolean | null
+  isDeleted: boolean | null
+  deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -83,6 +87,8 @@ export type UserCountAggregateOutputType = {
   cancellationCount: number
   accountStatus: number
   isAdmin: number
+  isDeleted: number
+  deletedAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -112,6 +118,8 @@ export type UserMinAggregateInputType = {
   cancellationCount?: true
   accountStatus?: true
   isAdmin?: true
+  isDeleted?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -129,6 +137,8 @@ export type UserMaxAggregateInputType = {
   cancellationCount?: true
   accountStatus?: true
   isAdmin?: true
+  isDeleted?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -146,6 +156,8 @@ export type UserCountAggregateInputType = {
   cancellationCount?: true
   accountStatus?: true
   isAdmin?: true
+  isDeleted?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -250,6 +262,8 @@ export type UserGroupByOutputType = {
   cancellationCount: number
   accountStatus: $Enums.AccountStatus
   isAdmin: boolean
+  isDeleted: boolean
+  deletedAt: Date | null
   createdAt: Date
   updatedAt: Date
   _count: UserCountAggregateOutputType | null
@@ -290,6 +304,8 @@ export type UserWhereInput = {
   cancellationCount?: Prisma.IntFilter<"User"> | number
   accountStatus?: Prisma.EnumAccountStatusFilter<"User"> | $Enums.AccountStatus
   isAdmin?: Prisma.BoolFilter<"User"> | boolean
+  isDeleted?: Prisma.BoolFilter<"User"> | boolean
+  deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   sessions?: Prisma.SessionListRelationFilter
@@ -309,6 +325,8 @@ export type UserOrderByWithRelationInput = {
   cancellationCount?: Prisma.SortOrder
   accountStatus?: Prisma.SortOrder
   isAdmin?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   sessions?: Prisma.SessionOrderByRelationAggregateInput
@@ -331,6 +349,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   cancellationCount?: Prisma.IntFilter<"User"> | number
   accountStatus?: Prisma.EnumAccountStatusFilter<"User"> | $Enums.AccountStatus
   isAdmin?: Prisma.BoolFilter<"User"> | boolean
+  isDeleted?: Prisma.BoolFilter<"User"> | boolean
+  deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   sessions?: Prisma.SessionListRelationFilter
@@ -350,6 +370,8 @@ export type UserOrderByWithAggregationInput = {
   cancellationCount?: Prisma.SortOrder
   accountStatus?: Prisma.SortOrder
   isAdmin?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
@@ -375,6 +397,8 @@ export type UserScalarWhereWithAggregatesInput = {
   cancellationCount?: Prisma.IntWithAggregatesFilter<"User"> | number
   accountStatus?: Prisma.EnumAccountStatusWithAggregatesFilter<"User"> | $Enums.AccountStatus
   isAdmin?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  isDeleted?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
@@ -392,6 +416,8 @@ export type UserCreateInput = {
   cancellationCount?: number
   accountStatus?: $Enums.AccountStatus
   isAdmin?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
@@ -411,6 +437,8 @@ export type UserUncheckedCreateInput = {
   cancellationCount?: number
   accountStatus?: $Enums.AccountStatus
   isAdmin?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -430,6 +458,8 @@ export type UserUpdateInput = {
   cancellationCount?: Prisma.IntFieldUpdateOperationsInput | number
   accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
@@ -449,6 +479,8 @@ export type UserUncheckedUpdateInput = {
   cancellationCount?: Prisma.IntFieldUpdateOperationsInput | number
   accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -468,6 +500,8 @@ export type UserCreateManyInput = {
   cancellationCount?: number
   accountStatus?: $Enums.AccountStatus
   isAdmin?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -485,6 +519,8 @@ export type UserUpdateManyMutationInput = {
   cancellationCount?: Prisma.IntFieldUpdateOperationsInput | number
   accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -502,6 +538,8 @@ export type UserUncheckedUpdateManyInput = {
   cancellationCount?: Prisma.IntFieldUpdateOperationsInput | number
   accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -519,6 +557,8 @@ export type UserCountOrderByAggregateInput = {
   cancellationCount?: Prisma.SortOrder
   accountStatus?: Prisma.SortOrder
   isAdmin?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -541,6 +581,8 @@ export type UserMaxOrderByAggregateInput = {
   cancellationCount?: Prisma.SortOrder
   accountStatus?: Prisma.SortOrder
   isAdmin?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -558,6 +600,8 @@ export type UserMinOrderByAggregateInput = {
   cancellationCount?: Prisma.SortOrder
   accountStatus?: Prisma.SortOrder
   isAdmin?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -608,6 +652,10 @@ export type EnumAccountStatusFieldUpdateOperationsInput = {
   set?: $Enums.AccountStatus
 }
 
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
@@ -653,6 +701,8 @@ export type UserCreateWithoutSessionsInput = {
   cancellationCount?: number
   accountStatus?: $Enums.AccountStatus
   isAdmin?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
@@ -671,6 +721,8 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   cancellationCount?: number
   accountStatus?: $Enums.AccountStatus
   isAdmin?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
@@ -705,6 +757,8 @@ export type UserUpdateWithoutSessionsInput = {
   cancellationCount?: Prisma.IntFieldUpdateOperationsInput | number
   accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
@@ -723,6 +777,8 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   cancellationCount?: Prisma.IntFieldUpdateOperationsInput | number
   accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -741,6 +797,8 @@ export type UserCreateWithoutAccountsInput = {
   cancellationCount?: number
   accountStatus?: $Enums.AccountStatus
   isAdmin?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
@@ -759,6 +817,8 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   cancellationCount?: number
   accountStatus?: $Enums.AccountStatus
   isAdmin?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -793,6 +853,8 @@ export type UserUpdateWithoutAccountsInput = {
   cancellationCount?: Prisma.IntFieldUpdateOperationsInput | number
   accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
@@ -811,6 +873,8 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   cancellationCount?: Prisma.IntFieldUpdateOperationsInput | number
   accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -869,6 +933,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   cancellationCount?: boolean
   accountStatus?: boolean
   isAdmin?: boolean
+  isDeleted?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
@@ -889,6 +955,8 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   cancellationCount?: boolean
   accountStatus?: boolean
   isAdmin?: boolean
+  isDeleted?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -906,6 +974,8 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   cancellationCount?: boolean
   accountStatus?: boolean
   isAdmin?: boolean
+  isDeleted?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -923,11 +993,13 @@ export type UserSelectScalar = {
   cancellationCount?: boolean
   accountStatus?: boolean
   isAdmin?: boolean
+  isDeleted?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "gender" | "phoneNumber" | "isVerified" | "avgRatingAsDriver" | "cancellationCount" | "accountStatus" | "isAdmin" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "gender" | "phoneNumber" | "isVerified" | "avgRatingAsDriver" | "cancellationCount" | "accountStatus" | "isAdmin" | "isDeleted" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
@@ -955,6 +1027,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     cancellationCount: number
     accountStatus: $Enums.AccountStatus
     isAdmin: boolean
+    isDeleted: boolean
+    deletedAt: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["user"]>
@@ -1394,6 +1468,8 @@ export interface UserFieldRefs {
   readonly cancellationCount: Prisma.FieldRef<"User", 'Int'>
   readonly accountStatus: Prisma.FieldRef<"User", 'AccountStatus'>
   readonly isAdmin: Prisma.FieldRef<"User", 'Boolean'>
+  readonly isDeleted: Prisma.FieldRef<"User", 'Boolean'>
+  readonly deletedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
 }

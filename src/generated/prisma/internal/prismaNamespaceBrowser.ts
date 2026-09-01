@@ -86,6 +86,8 @@ export const UserScalarFieldEnum = {
   cancellationCount: 'cancellationCount',
   accountStatus: 'accountStatus',
   isAdmin: 'isAdmin',
+  isDeleted: 'isDeleted',
+  deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -95,13 +97,13 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 
 export const SessionScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
-  token: 'token',
   expiresAt: 'expiresAt',
+  token: 'token',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
   ipAddress: 'ipAddress',
   userAgent: 'userAgent',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  userId: 'userId'
 } as const
 
 export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
@@ -112,6 +114,7 @@ export const AccountScalarFieldEnum = {
   userId: 'userId',
   accountId: 'accountId',
   providerId: 'providerId',
+  issuer: 'issuer',
   accessToken: 'accessToken',
   refreshToken: 'refreshToken',
   idToken: 'idToken',
