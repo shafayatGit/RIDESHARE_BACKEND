@@ -1,9 +1,15 @@
-import { Request } from "express";
+import { Request, Response } from "express";
 import status from "http-status";
 import { auth } from "../../lib/auth";
 import { prisma } from "../../lib/prisma";
 import AppError from "../../errors/AppError";
-import { ILoginPayload, IRegisterPayload } from "./auth.interface";
+import { tokenUtils } from "../../utils/token";
+import {
+  ILoginPayload,
+  IRegisterPayload,
+  ISendOTPPayload,
+  IVerifyOTPPayload,
+} from "./auth.interface";
 
 const buildHeaders = (req: Request): Headers => {
   const headers = new Headers();
@@ -14,7 +20,7 @@ const buildHeaders = (req: Request): Headers => {
 };
 
 const registerUser = async (req: Request, payload: IRegisterPayload) => {
-  const { name, email, password, gender, image } = payload;
+  const { name, email, password, gender, image, phoneNumber } = payload;
 
   const existingUser = await prisma.user.findUnique({
     where: { email: email.toLowerCase() },
@@ -25,7 +31,7 @@ const registerUser = async (req: Request, payload: IRegisterPayload) => {
   }
 
   const result = await auth.api.signUpEmail({
-    body: { name, email, password, gender, image },
+    body: { name, email, password, gender, image, phoneNumber },
     headers: buildHeaders(req),
   });
 
@@ -35,19 +41,28 @@ const registerUser = async (req: Request, payload: IRegisterPayload) => {
   };
 };
 
-const loginUser = async (req: Request, payload: ILoginPayload) => {
+const loginUser = async (
+  req: Request,
+  res: Response,
+  payload: ILoginPayload,
+) => {
   const { email, password } = payload;
 
-  const user = await prisma.user.findUnique({
-    where: { email: email.toLowerCase() },
+  const user = await prisma.user.findFirst({
+    where: {
+      email: email?.toLowerCase(),
+    },
   });
 
-  if (!user) {
-    throw new AppError(status.UNAUTHORIZED, "Invalid email or password");
+  if (!user || user.isDeleted) {
+    throw new AppError(status.UNAUTHORIZED, "Invalid credentials");
   }
 
-  if (user.isDeleted) {
-    throw new AppError(status.UNAUTHORIZED, "This account has been deactivated");
+  if (!user.emailVerified) {
+    throw new AppError(
+      status.FORBIDDEN,
+      "Please verify your email before logging in",
+    );
   }
 
   const result = await auth.api.signInEmail({
@@ -55,10 +70,51 @@ const loginUser = async (req: Request, payload: ILoginPayload) => {
     headers: buildHeaders(req),
   });
 
+  const accessToken = tokenUtils.getAccessToken({
+    id: user.id,
+    email: user.email,
+  });
+  const refreshToken = tokenUtils.getRefreshToken({
+    id: user.id,
+    email: user.email,
+  });
+
+  tokenUtils.setAccessTokenCookie(res, accessToken);
+  tokenUtils.setRefreshTokenCookie(res, refreshToken);
+  tokenUtils.setBetterAuthSessionCookie(res, result.token);
+
   return {
+    accessToken,
+    refreshToken,
     token: result.token,
-    user: result.user,
+    user,
   };
+};
+
+const sendOTP = async (req: Request, { email }: ISendOTPPayload) => {
+  await prisma.user.findUniqueOrThrow({
+    where: { email: email.toLowerCase() },
+  });
+
+  await auth.api.sendVerificationOTP({
+    body: { email, type: "email-verification" },
+    headers: buildHeaders(req),
+  });
+
+  return { email };
+};
+
+const verifyOTP = async (req: Request, { email, otp }: IVerifyOTPPayload) => {
+  const result = await auth.api.verifyEmailOTP({
+    body: { email, otp },
+    headers: buildHeaders(req),
+  });
+
+  if (!result.status) {
+    throw new AppError(status.UNAUTHORIZED, "Invalid or expired OTP");
+  }
+
+  return result;
 };
 
 const softDeleteUser = async (req: Request) => {
@@ -86,5 +142,7 @@ const softDeleteUser = async (req: Request) => {
 export const authService = {
   registerUser,
   loginUser,
+  sendOTP,
+  verifyOTP,
   softDeleteUser,
 };

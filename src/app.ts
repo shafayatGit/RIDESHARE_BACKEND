@@ -5,8 +5,15 @@ import notFound from "./middlewares/notFound";
 import { indexRouter } from "./routes";
 import { envVars } from "./config/env";
 import cookieParser from "cookie-parser";
+import { toNodeHandler } from "better-auth/node";
+import { auth } from "./lib/auth";
+import path from "path";
 
 const app: Application = express();
+
+app.use("/api/auth", toNodeHandler(auth));
+app.set("view engine", "ejs"); // Set the views directory to the absolute path of src/app/templates
+app.set("views", path.resolve(process.cwd(), `src/app/templates`));
 
 // parsers
 app.use(express.json());
