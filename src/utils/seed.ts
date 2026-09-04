@@ -18,7 +18,7 @@ export const seedAdmin = async () => {
       body: {
         email: envVars.ADMIN_EMAIL,
         password: envVars.ADMIN_PASSWORD,
-        name: "Admin",
+        name: "RideShare Admin",
         gender: Gender.MALE,
       },
     });

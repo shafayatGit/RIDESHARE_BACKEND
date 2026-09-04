@@ -18,6 +18,7 @@ model User {
 
   sessions          Session[]
   accounts          Account[]
+  vehicles          vehicle[]
 
   @@index([email])
   @@map("user")
