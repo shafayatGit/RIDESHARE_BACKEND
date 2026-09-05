@@ -104,7 +104,15 @@ const sendOTP = async (req: Request, { email }: ISendOTPPayload) => {
   return { email };
 };
 
-const verifyOTP = async (req: Request, { email, otp }: IVerifyOTPPayload) => {
+const resendOTP = async (req: Request, payload: ISendOTPPayload) => {
+  return sendOTP(req, payload);
+};
+
+const verifyOTP = async (
+  req: Request,
+  res: Response,
+  { email, otp }: IVerifyOTPPayload,
+) => {
   const result = await auth.api.verifyEmailOTP({
     body: { email, otp },
     headers: buildHeaders(req),
@@ -114,7 +122,35 @@ const verifyOTP = async (req: Request, { email, otp }: IVerifyOTPPayload) => {
     throw new AppError(status.UNAUTHORIZED, "Invalid or expired OTP");
   }
 
-  return result;
+  const user = await prisma.user.findUnique({
+    where: { email: email.toLowerCase() },
+  });
+
+  if (!user) {
+    throw new AppError(status.NOT_FOUND, "User not found");
+  }
+
+  const accessToken = tokenUtils.getAccessToken({
+    id: user.id,
+    email: user.email,
+  });
+  const refreshToken = tokenUtils.getRefreshToken({
+    id: user.id,
+    email: user.email,
+  });
+
+  tokenUtils.setAccessTokenCookie(res, accessToken);
+  tokenUtils.setRefreshTokenCookie(res, refreshToken);
+  if (result.token) {
+    tokenUtils.setBetterAuthSessionCookie(res, result.token);
+  }
+
+  return {
+    accessToken,
+    refreshToken,
+    token: result.token,
+    user,
+  };
 };
 
 const softDeleteUser = async (req: Request) => {
@@ -143,6 +179,7 @@ export const authService = {
   registerUser,
   loginUser,
   sendOTP,
+  resendOTP,
   verifyOTP,
   softDeleteUser,
 };

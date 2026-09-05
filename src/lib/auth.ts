@@ -117,7 +117,7 @@ export const auth = betterAuth({
   },
   trustedOrigins: [
     envVars.BETTER_AUTH_URL || "http://localhost:8000",
-    envVars.FRONTEND_URL,
+    ...envVars.FRONTEND_URL.split(",").map((o) => o.trim()),
   ],
   advanced: {
     useSecureCookies: false,

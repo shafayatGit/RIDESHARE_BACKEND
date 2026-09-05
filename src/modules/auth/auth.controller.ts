@@ -43,14 +43,29 @@ const sendOTP = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const resendOTP = catchAsync(async (req: Request, res: Response) => {
+  const result = await authService.resendOTP(req, req.body as ISendOTPPayload);
+
+  sendResponse(res, {
+    httpStatusCode: status.OK,
+    success: true,
+    message: "OTP resent successfully",
+    data: result,
+  });
+});
+
 const verifyOTP = catchAsync(async (req: Request, res: Response) => {
-  const result = await authService.verifyOTP(req, req.body as IVerifyOTPPayload);
+  const result = await authService.verifyOTP(
+    req,
+    res,
+    req.body as IVerifyOTPPayload,
+  );
 
   sendResponse(res, {
     httpStatusCode: status.OK,
     success: true,
     message: "Email verified successfully",
-    data: { user: result.user },
+    data: result,
   });
 });
 
@@ -69,6 +84,7 @@ export const authController = {
   registerUser,
   loginUser,
   sendOTP,
+  resendOTP,
   verifyOTP,
   softDeleteUser,
 };
