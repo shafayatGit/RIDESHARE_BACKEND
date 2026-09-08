@@ -1,0 +1,157 @@
+erDiagram
+    USER {
+        int user_id PK
+        string full_name
+        string email UK
+        string password_hash
+        string phone_number
+        string gender
+        string profile_photo_url
+        string role
+        boolean is_verified
+        float avg_rating_as_driver
+        float avg_rating_as_passenger
+        int cancellation_count
+        string account_status
+        datetime created_at
+        datetime updated_at
+    }
+
+    VEHICLE {
+        int vehicle_id PK
+        int owner_id FK
+        string make
+        string model
+        string color
+        string plate_number
+        int seat_capacity
+        datetime created_at
+    }
+
+    RECURRING_PATTERN {
+        int pattern_id PK
+        int driver_id FK
+        string days_of_week
+        string origin_address
+        float origin_lat
+        float origin_lng
+        string destination_address
+        float destination_lat
+        float destination_lng
+        time departure_time
+        date start_date
+        date end_date
+        boolean is_active
+        datetime created_at
+    }
+
+    RIDE {
+        int ride_id PK
+        int driver_id FK
+        int vehicle_id FK
+        int pattern_id FK
+        string origin_address
+        float origin_lat
+        float origin_lng
+        string destination_address
+        float destination_lat
+        float destination_lng
+        datetime departure_time
+        datetime estimated_arrival_time
+        datetime actual_start_time
+        datetime actual_end_time
+        int total_seats
+        int available_seats
+        decimal price_per_seat
+        string status
+        boolean is_female_only
+        datetime created_at
+        datetime updated_at
+    }
+
+    RIDE_CHECKPOINT {
+        int checkpoint_id PK
+        int ride_id FK
+        string type
+        string address
+        float lat
+        float lng
+        int sequence_order
+        datetime estimated_time
+    }
+
+    BOOKING {
+        int booking_id PK
+        int ride_id FK
+        int passenger_id FK
+        int pickup_checkpoint_id FK
+        int drop_checkpoint_id FK
+        int seats_booked
+        string status
+        decimal cost_share_amount
+        datetime booking_time
+        int cancelled_by FK
+        string cancellation_reason
+        datetime cancelled_at
+    }
+
+    RATING {
+        int rating_id PK
+        int ride_id FK
+        int rater_id FK
+        int ratee_id FK
+        string rating_type
+        int rating_value
+        string comment
+        datetime created_at
+    }
+
+    MESSAGE {
+        int message_id PK
+        int ride_id FK
+        int sender_id FK
+        string content
+        datetime sent_at
+        datetime read_at
+    }
+
+    FAVORITE {
+        int favorite_id PK
+        int user_id FK
+        int favorite_user_id FK
+        datetime created_at
+    }
+
+    REPORT {
+        int report_id PK
+        int reporter_id FK
+        int reported_user_id FK
+        int ride_id FK
+        string reason
+        string description
+        string status
+        int reviewed_by FK
+        datetime created_at
+        datetime resolved_at
+    }
+
+    USER ||--o{ VEHICLE : owns
+    USER ||--o{ RECURRING_PATTERN : creates
+    USER ||--o{ RIDE : drives
+    RECURRING_PATTERN ||--o{ RIDE : generates
+    VEHICLE ||--o{ RIDE : "assigned to"
+    RIDE ||--o{ RIDE_CHECKPOINT : defines
+    RIDE ||--o{ BOOKING : receives
+    USER ||--o{ BOOKING : makes
+    RIDE_CHECKPOINT ||--o{ BOOKING : "pickup point"
+    RIDE_CHECKPOINT ||--o{ BOOKING : "drop point"
+    RIDE ||--o{ RATING : "rated on"
+    USER ||--o{ RATING : gives
+    USER ||--o{ RATING : receives
+    RIDE ||--o{ MESSAGE : contains
+    USER ||--o{ MESSAGE : sends
+    USER ||--o{ FAVORITE : "favorites others"
+    USER ||--o{ FAVORITE : "favorited by"
+    USER ||--o{ REPORT : files
+    USER ||--o{ REPORT : "is reported"
+    RIDE ||--o{ REPORT : "related to"

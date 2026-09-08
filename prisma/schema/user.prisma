@@ -1,35 +1,37 @@
 model User {
-  id                String         @id @default(uuid())
+  id                String        @id @default(uuid())
   name              String
-  email             String         @unique
-  emailVerified     Boolean        @default(false)
+  email             String        @unique
+  emailVerified     Boolean       @default(false)
   image             String?
   gender            Gender
   phoneNumber       String?
-  isVerified        Boolean        @default(false)
-  avgRatingAsDriver Float          @default(0)
-  cancellationCount Int            @default(0)
-  accountStatus     AccountStatus  @default(ACTIVE)
-  isAdmin           Boolean        @default(false)
-  isDeleted         Boolean        @default(false)
+  isVerified        Boolean       @default(false)
+  avgRatingAsDriver Float         @default(0)
+  cancellationCount Int           @default(0)
+  accountStatus     AccountStatus @default(ACTIVE)
+  isAdmin           Boolean       @default(false)
+  isDeleted         Boolean       @default(false)
   deletedAt         DateTime?
-  createdAt         DateTime       @default(now())
-  updatedAt         DateTime       @updatedAt
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
 
-  sessions          Session[]
-  accounts          Account[]
-  vehicles          vehicle[]
+  sessions Session[]
+  accounts Account[]
+  vehicles Vehicle[]
+  rides    Ride[]
+  messages Message[]
 
   @@index([email])
   @@map("user")
 }
 
 model Session {
-  id        String    @id
+  id        String   @id
   expiresAt DateTime
   token     String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   ipAddress String?
   userAgent String?
   userId    String
@@ -41,7 +43,7 @@ model Session {
 }
 
 model Account {
-  id                    String     @id
+  id                    String    @id
   userId                String
   accountId             String
   providerId            String
@@ -56,18 +58,18 @@ model Account {
   createdAt             DateTime
   updatedAt             DateTime
 
-  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([issuer,     accountId])
+  @@unique([issuer, accountId])
 }
 
 model Verification {
-  id         String    @id
+  id         String   @id
   identifier String
   value      String
   expiresAt  DateTime
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   @@index([identifier])
   @@map("verification")

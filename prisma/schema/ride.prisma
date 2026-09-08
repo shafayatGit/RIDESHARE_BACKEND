@@ -1,0 +1,51 @@
+model Ride {
+  id        String @id @default(uuid())
+  driverId  String
+  vehicleId String
+
+  originAddress      String
+  originLat          Float
+  originLng          Float
+  destinationAddress String
+  destinationLat     Float
+  destinationLng     Float
+
+  departureTime        DateTime
+  estimatedArrivalTime DateTime?
+  actualStartTime      DateTime?
+  actualEndTime        DateTime?
+
+  totalSeats     Int
+  availableSeats Int
+  pricePerSeat   Decimal    @db.Decimal(10, 2)
+  status         RideStatus @default(SCHEDULED)
+  isFemaleOnly   Boolean    @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  driver      User             @relation(fields: [driverId], references: [id], onDelete: Restrict)
+  vehicle     Vehicle          @relation(fields: [vehicleId], references: [id], onDelete: Restrict)
+  checkpoints RideCheckpoint[]
+  messages    Message[]
+
+  @@index([driverId])
+  @@index([vehicleId])
+  @@map("ride")
+}
+
+model RideCheckpoint {
+  id            String         @id @default(uuid())
+  rideId        String
+  type          CheckpointType
+  address       String
+  lat           Float
+  lng           Float
+  sequenceOrder Int
+  estimatedTime DateTime?
+
+  ride Ride @relation(fields: [rideId], references: [id], onDelete: Cascade)
+
+  @@index([rideId])
+  @@map("ride_checkpoint")
+}

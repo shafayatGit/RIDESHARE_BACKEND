@@ -1,10 +1,22 @@
 enum Gender {
-    MALE
-    FEMALE
-    }
+  MALE
+  FEMALE
+}
 
 enum AccountStatus {
-    ACTIVE
-    DEACTIVATED
+  ACTIVE
+  DEACTIVATED
 }
-    
+
+enum RideStatus {
+  SCHEDULED
+  ONGOING
+  COMPLETED
+  CANCELLED
+}
+
+enum CheckpointType {
+  PICKUP
+  DROP
+  STOP
+}

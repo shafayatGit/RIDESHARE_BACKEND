@@ -23,3 +23,22 @@ export const AccountStatus = {
 } as const
 
 export type AccountStatus = (typeof AccountStatus)[keyof typeof AccountStatus]
+
+
+export const RideStatus = {
+  SCHEDULED: 'SCHEDULED',
+  ONGOING: 'ONGOING',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type RideStatus = (typeof RideStatus)[keyof typeof RideStatus]
+
+
+export const CheckpointType = {
+  PICKUP: 'PICKUP',
+  DROP: 'DROP',
+  STOP: 'STOP'
+} as const
+
+export type CheckpointType = (typeof CheckpointType)[keyof typeof CheckpointType]

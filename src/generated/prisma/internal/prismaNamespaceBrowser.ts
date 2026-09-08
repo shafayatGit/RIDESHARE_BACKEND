@@ -51,11 +51,14 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  Message: 'Message',
+  Ride: 'Ride',
+  RideCheckpoint: 'RideCheckpoint',
   User: 'User',
   Session: 'Session',
   Account: 'Account',
   Verification: 'Verification',
-  vehicle: 'vehicle'
+  Vehicle: 'Vehicle'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -72,6 +75,58 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 } as const)
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+export const MessageScalarFieldEnum = {
+  id: 'id',
+  rideId: 'rideId',
+  senderId: 'senderId',
+  content: 'content',
+  sentAt: 'sentAt',
+  readAt: 'readAt'
+} as const
+
+export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
+
+
+export const RideScalarFieldEnum = {
+  id: 'id',
+  driverId: 'driverId',
+  vehicleId: 'vehicleId',
+  originAddress: 'originAddress',
+  originLat: 'originLat',
+  originLng: 'originLng',
+  destinationAddress: 'destinationAddress',
+  destinationLat: 'destinationLat',
+  destinationLng: 'destinationLng',
+  departureTime: 'departureTime',
+  estimatedArrivalTime: 'estimatedArrivalTime',
+  actualStartTime: 'actualStartTime',
+  actualEndTime: 'actualEndTime',
+  totalSeats: 'totalSeats',
+  availableSeats: 'availableSeats',
+  pricePerSeat: 'pricePerSeat',
+  status: 'status',
+  isFemaleOnly: 'isFemaleOnly',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RideScalarFieldEnum = (typeof RideScalarFieldEnum)[keyof typeof RideScalarFieldEnum]
+
+
+export const RideCheckpointScalarFieldEnum = {
+  id: 'id',
+  rideId: 'rideId',
+  type: 'type',
+  address: 'address',
+  lat: 'lat',
+  lng: 'lng',
+  sequenceOrder: 'sequenceOrder',
+  estimatedTime: 'estimatedTime'
+} as const
+
+export type RideCheckpointScalarFieldEnum = (typeof RideCheckpointScalarFieldEnum)[keyof typeof RideCheckpointScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {

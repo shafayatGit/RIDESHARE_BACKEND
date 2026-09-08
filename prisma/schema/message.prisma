@@ -1,0 +1,15 @@
+model Message {
+  id       String    @id @default(uuid())
+  rideId   String
+  senderId String
+  content  String
+  sentAt   DateTime  @default(now())
+  readAt   DateTime?
+
+  ride   Ride @relation(fields: [rideId], references: [id], onDelete: Cascade)
+  sender User @relation(fields: [senderId], references: [id], onDelete: Cascade)
+
+  @@index([rideId])
+  @@index([senderId])
+  @@map("message")
+}
