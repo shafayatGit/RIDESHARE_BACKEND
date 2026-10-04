@@ -341,18 +341,6 @@ export type MessageOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type StringFieldUpdateOperationsInput = {
-  set?: string
-}
-
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
-}
-
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
-}
-
 export type MessageCreateNestedManyWithoutRideInput = {
   create?: Prisma.XOR<Prisma.MessageCreateWithoutRideInput, Prisma.MessageUncheckedCreateWithoutRideInput> | Prisma.MessageCreateWithoutRideInput[] | Prisma.MessageUncheckedCreateWithoutRideInput[]
   connectOrCreate?: Prisma.MessageCreateOrConnectWithoutRideInput | Prisma.MessageCreateOrConnectWithoutRideInput[]

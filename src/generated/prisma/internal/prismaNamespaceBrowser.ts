@@ -51,6 +51,7 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  Booking: 'Booking',
   Message: 'Message',
   Ride: 'Ride',
   RideCheckpoint: 'RideCheckpoint',
@@ -75,6 +76,26 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 } as const)
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+export const BookingScalarFieldEnum = {
+  id: 'id',
+  rideId: 'rideId',
+  passengerId: 'passengerId',
+  pickupCheckpointId: 'pickupCheckpointId',
+  dropCheckpointId: 'dropCheckpointId',
+  seatsBooked: 'seatsBooked',
+  costShareAmount: 'costShareAmount',
+  status: 'status',
+  bookingTime: 'bookingTime',
+  cancelledById: 'cancelledById',
+  cancellationReason: 'cancellationReason',
+  cancelledAt: 'cancelledAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BookingScalarFieldEnum = (typeof BookingScalarFieldEnum)[keyof typeof BookingScalarFieldEnum]
 
 
 export const MessageScalarFieldEnum = {

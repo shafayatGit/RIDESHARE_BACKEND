@@ -20,3 +20,10 @@ enum CheckpointType {
   DROP
   STOP
 }
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}

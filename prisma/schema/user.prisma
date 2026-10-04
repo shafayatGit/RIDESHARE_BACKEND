@@ -21,6 +21,8 @@ model User {
   vehicles Vehicle[]
   rides    Ride[]
   messages Message[]
+  bookings Booking[]
+  cancelledBookings Booking[] @relation("CancelledBookings")
 
   @@index([email])
   @@map("user")

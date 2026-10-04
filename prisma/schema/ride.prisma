@@ -28,6 +28,7 @@ model Ride {
   vehicle     Vehicle          @relation(fields: [vehicleId], references: [id], onDelete: Restrict)
   checkpoints RideCheckpoint[]
   messages    Message[]
+  bookings    Booking[]
 
   @@index([driverId])
   @@index([vehicleId])
@@ -45,6 +46,9 @@ model RideCheckpoint {
   estimatedTime DateTime?
 
   ride Ride @relation(fields: [rideId], references: [id], onDelete: Cascade)
+
+  pickupBookings Booking[] @relation("PickupBookings")
+  dropBookings   Booking[] @relation("DropBookings")
 
   @@index([rideId])
   @@map("ride_checkpoint")

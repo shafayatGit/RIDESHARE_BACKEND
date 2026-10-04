@@ -42,3 +42,13 @@ export const CheckpointType = {
 } as const
 
 export type CheckpointType = (typeof CheckpointType)[keyof typeof CheckpointType]
+
+
+export const BookingStatus = {
+  PENDING: 'PENDING',
+  CONFIRMED: 'CONFIRMED',
+  CANCELLED: 'CANCELLED',
+  COMPLETED: 'COMPLETED'
+} as const
+
+export type BookingStatus = (typeof BookingStatus)[keyof typeof BookingStatus]

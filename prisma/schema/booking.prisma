@@ -1,0 +1,30 @@
+model Booking {
+  id          String        @id @default(uuid())
+  rideId      String
+  passengerId String
+
+  pickupCheckpointId String
+  dropCheckpointId   String
+
+  seatsBooked     Int
+  costShareAmount Decimal       @db.Decimal(10, 2)
+  status          BookingStatus @default(PENDING)
+  bookingTime     DateTime      @default(now())
+  cancelledById   String?
+  cancellationReason String?
+  cancelledAt     DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  ride             Ride           @relation(fields: [rideId], references: [id], onDelete: Cascade)
+  passenger        User           @relation(fields: [passengerId], references: [id], onDelete: Cascade)
+  pickupCheckpoint RideCheckpoint @relation("PickupBookings", fields: [pickupCheckpointId], references: [id], onDelete: Cascade)
+  dropCheckpoint   RideCheckpoint @relation("DropBookings", fields: [dropCheckpointId], references: [id], onDelete: Cascade)
+  cancelledBy      User?          @relation("CancelledBookings", fields: [cancelledById], references: [id], onDelete: SetNull)
+
+  @@index([rideId])
+  @@index([passengerId])
+  @@index([status])
+  @@map("booking")
+}

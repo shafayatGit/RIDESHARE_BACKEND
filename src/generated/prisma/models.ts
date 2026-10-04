@@ -8,6 +8,7 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/Booking.js'
 export type * from './models/Message.js'
 export type * from './models/Ride.js'
 export type * from './models/RideCheckpoint.js'

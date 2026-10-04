@@ -313,6 +313,8 @@ export type UserWhereInput = {
   vehicles?: Prisma.VehicleListRelationFilter
   rides?: Prisma.RideListRelationFilter
   messages?: Prisma.MessageListRelationFilter
+  bookings?: Prisma.BookingListRelationFilter
+  cancelledBookings?: Prisma.BookingListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -337,6 +339,8 @@ export type UserOrderByWithRelationInput = {
   vehicles?: Prisma.VehicleOrderByRelationAggregateInput
   rides?: Prisma.RideOrderByRelationAggregateInput
   messages?: Prisma.MessageOrderByRelationAggregateInput
+  bookings?: Prisma.BookingOrderByRelationAggregateInput
+  cancelledBookings?: Prisma.BookingOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -364,6 +368,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   vehicles?: Prisma.VehicleListRelationFilter
   rides?: Prisma.RideListRelationFilter
   messages?: Prisma.MessageListRelationFilter
+  bookings?: Prisma.BookingListRelationFilter
+  cancelledBookings?: Prisma.BookingListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -434,6 +440,8 @@ export type UserCreateInput = {
   vehicles?: Prisma.VehicleCreateNestedManyWithoutUserInput
   rides?: Prisma.RideCreateNestedManyWithoutDriverInput
   messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutPassengerInput
+  cancelledBookings?: Prisma.BookingCreateNestedManyWithoutCancelledByInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -458,6 +466,8 @@ export type UserUncheckedCreateInput = {
   vehicles?: Prisma.VehicleUncheckedCreateNestedManyWithoutUserInput
   rides?: Prisma.RideUncheckedCreateNestedManyWithoutDriverInput
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutPassengerInput
+  cancelledBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutCancelledByInput
 }
 
 export type UserUpdateInput = {
@@ -482,6 +492,8 @@ export type UserUpdateInput = {
   vehicles?: Prisma.VehicleUpdateManyWithoutUserNestedInput
   rides?: Prisma.RideUpdateManyWithoutDriverNestedInput
   messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutPassengerNestedInput
+  cancelledBookings?: Prisma.BookingUpdateManyWithoutCancelledByNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -506,6 +518,8 @@ export type UserUncheckedUpdateInput = {
   vehicles?: Prisma.VehicleUncheckedUpdateManyWithoutUserNestedInput
   rides?: Prisma.RideUncheckedUpdateManyWithoutDriverNestedInput
   messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutPassengerNestedInput
+  cancelledBookings?: Prisma.BookingUncheckedUpdateManyWithoutCancelledByNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -568,6 +582,11 @@ export type UserUncheckedUpdateManyInput = {
 export type UserScalarRelationFilter = {
   is?: Prisma.UserWhereInput
   isNot?: Prisma.UserWhereInput
+}
+
+export type UserNullableScalarRelationFilter = {
+  is?: Prisma.UserWhereInput | null
+  isNot?: Prisma.UserWhereInput | null
 }
 
 export type UserCountOrderByAggregateInput = {
@@ -637,6 +656,36 @@ export type UserSumOrderByAggregateInput = {
   cancellationCount?: Prisma.SortOrder
 }
 
+export type UserCreateNestedOneWithoutBookingsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBookingsInput, Prisma.UserUncheckedCreateWithoutBookingsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBookingsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutCancelledBookingsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCancelledBookingsInput, Prisma.UserUncheckedCreateWithoutCancelledBookingsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCancelledBookingsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutBookingsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBookingsInput, Prisma.UserUncheckedCreateWithoutBookingsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBookingsInput
+  upsert?: Prisma.UserUpsertWithoutBookingsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBookingsInput, Prisma.UserUpdateWithoutBookingsInput>, Prisma.UserUncheckedUpdateWithoutBookingsInput>
+}
+
+export type UserUpdateOneWithoutCancelledBookingsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCancelledBookingsInput, Prisma.UserUncheckedCreateWithoutCancelledBookingsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCancelledBookingsInput
+  upsert?: Prisma.UserUpsertWithoutCancelledBookingsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCancelledBookingsInput, Prisma.UserUpdateWithoutCancelledBookingsInput>, Prisma.UserUncheckedUpdateWithoutCancelledBookingsInput>
+}
+
 export type UserCreateNestedOneWithoutMessagesInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutMessagesInput, Prisma.UserUncheckedCreateWithoutMessagesInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutMessagesInput
@@ -663,10 +712,6 @@ export type UserUpdateOneRequiredWithoutRidesNestedInput = {
   upsert?: Prisma.UserUpsertWithoutRidesInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRidesInput, Prisma.UserUpdateWithoutRidesInput>, Prisma.UserUncheckedUpdateWithoutRidesInput>
-}
-
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
 }
 
 export type EnumGenderFieldUpdateOperationsInput = {
@@ -719,6 +764,238 @@ export type UserUpdateOneRequiredWithoutVehiclesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutVehiclesInput, Prisma.UserUpdateWithoutVehiclesInput>, Prisma.UserUncheckedUpdateWithoutVehiclesInput>
 }
 
+export type UserCreateWithoutBookingsInput = {
+  id?: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  gender: $Enums.Gender
+  phoneNumber?: string | null
+  isVerified?: boolean
+  avgRatingAsDriver?: number
+  cancellationCount?: number
+  accountStatus?: $Enums.AccountStatus
+  isAdmin?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  vehicles?: Prisma.VehicleCreateNestedManyWithoutUserInput
+  rides?: Prisma.RideCreateNestedManyWithoutDriverInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  cancelledBookings?: Prisma.BookingCreateNestedManyWithoutCancelledByInput
+}
+
+export type UserUncheckedCreateWithoutBookingsInput = {
+  id?: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  gender: $Enums.Gender
+  phoneNumber?: string | null
+  isVerified?: boolean
+  avgRatingAsDriver?: number
+  cancellationCount?: number
+  accountStatus?: $Enums.AccountStatus
+  isAdmin?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  vehicles?: Prisma.VehicleUncheckedCreateNestedManyWithoutUserInput
+  rides?: Prisma.RideUncheckedCreateNestedManyWithoutDriverInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  cancelledBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutCancelledByInput
+}
+
+export type UserCreateOrConnectWithoutBookingsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutBookingsInput, Prisma.UserUncheckedCreateWithoutBookingsInput>
+}
+
+export type UserCreateWithoutCancelledBookingsInput = {
+  id?: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  gender: $Enums.Gender
+  phoneNumber?: string | null
+  isVerified?: boolean
+  avgRatingAsDriver?: number
+  cancellationCount?: number
+  accountStatus?: $Enums.AccountStatus
+  isAdmin?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  vehicles?: Prisma.VehicleCreateNestedManyWithoutUserInput
+  rides?: Prisma.RideCreateNestedManyWithoutDriverInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutPassengerInput
+}
+
+export type UserUncheckedCreateWithoutCancelledBookingsInput = {
+  id?: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  gender: $Enums.Gender
+  phoneNumber?: string | null
+  isVerified?: boolean
+  avgRatingAsDriver?: number
+  cancellationCount?: number
+  accountStatus?: $Enums.AccountStatus
+  isAdmin?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  vehicles?: Prisma.VehicleUncheckedCreateNestedManyWithoutUserInput
+  rides?: Prisma.RideUncheckedCreateNestedManyWithoutDriverInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutPassengerInput
+}
+
+export type UserCreateOrConnectWithoutCancelledBookingsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCancelledBookingsInput, Prisma.UserUncheckedCreateWithoutCancelledBookingsInput>
+}
+
+export type UserUpsertWithoutBookingsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutBookingsInput, Prisma.UserUncheckedUpdateWithoutBookingsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutBookingsInput, Prisma.UserUncheckedCreateWithoutBookingsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutBookingsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutBookingsInput, Prisma.UserUncheckedUpdateWithoutBookingsInput>
+}
+
+export type UserUpdateWithoutBookingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  avgRatingAsDriver?: Prisma.FloatFieldUpdateOperationsInput | number
+  cancellationCount?: Prisma.IntFieldUpdateOperationsInput | number
+  accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  vehicles?: Prisma.VehicleUpdateManyWithoutUserNestedInput
+  rides?: Prisma.RideUpdateManyWithoutDriverNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  cancelledBookings?: Prisma.BookingUpdateManyWithoutCancelledByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutBookingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  avgRatingAsDriver?: Prisma.FloatFieldUpdateOperationsInput | number
+  cancellationCount?: Prisma.IntFieldUpdateOperationsInput | number
+  accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  vehicles?: Prisma.VehicleUncheckedUpdateManyWithoutUserNestedInput
+  rides?: Prisma.RideUncheckedUpdateManyWithoutDriverNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  cancelledBookings?: Prisma.BookingUncheckedUpdateManyWithoutCancelledByNestedInput
+}
+
+export type UserUpsertWithoutCancelledBookingsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCancelledBookingsInput, Prisma.UserUncheckedUpdateWithoutCancelledBookingsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCancelledBookingsInput, Prisma.UserUncheckedCreateWithoutCancelledBookingsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCancelledBookingsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCancelledBookingsInput, Prisma.UserUncheckedUpdateWithoutCancelledBookingsInput>
+}
+
+export type UserUpdateWithoutCancelledBookingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  avgRatingAsDriver?: Prisma.FloatFieldUpdateOperationsInput | number
+  cancellationCount?: Prisma.IntFieldUpdateOperationsInput | number
+  accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  vehicles?: Prisma.VehicleUpdateManyWithoutUserNestedInput
+  rides?: Prisma.RideUpdateManyWithoutDriverNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutPassengerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCancelledBookingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  avgRatingAsDriver?: Prisma.FloatFieldUpdateOperationsInput | number
+  cancellationCount?: Prisma.IntFieldUpdateOperationsInput | number
+  accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  vehicles?: Prisma.VehicleUncheckedUpdateManyWithoutUserNestedInput
+  rides?: Prisma.RideUncheckedUpdateManyWithoutDriverNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutPassengerNestedInput
+}
+
 export type UserCreateWithoutMessagesInput = {
   id?: string
   name: string
@@ -740,6 +1017,8 @@ export type UserCreateWithoutMessagesInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   vehicles?: Prisma.VehicleCreateNestedManyWithoutUserInput
   rides?: Prisma.RideCreateNestedManyWithoutDriverInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutPassengerInput
+  cancelledBookings?: Prisma.BookingCreateNestedManyWithoutCancelledByInput
 }
 
 export type UserUncheckedCreateWithoutMessagesInput = {
@@ -763,6 +1042,8 @@ export type UserUncheckedCreateWithoutMessagesInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   vehicles?: Prisma.VehicleUncheckedCreateNestedManyWithoutUserInput
   rides?: Prisma.RideUncheckedCreateNestedManyWithoutDriverInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutPassengerInput
+  cancelledBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutCancelledByInput
 }
 
 export type UserCreateOrConnectWithoutMessagesInput = {
@@ -802,6 +1083,8 @@ export type UserUpdateWithoutMessagesInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   vehicles?: Prisma.VehicleUpdateManyWithoutUserNestedInput
   rides?: Prisma.RideUpdateManyWithoutDriverNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutPassengerNestedInput
+  cancelledBookings?: Prisma.BookingUpdateManyWithoutCancelledByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMessagesInput = {
@@ -825,6 +1108,8 @@ export type UserUncheckedUpdateWithoutMessagesInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   vehicles?: Prisma.VehicleUncheckedUpdateManyWithoutUserNestedInput
   rides?: Prisma.RideUncheckedUpdateManyWithoutDriverNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutPassengerNestedInput
+  cancelledBookings?: Prisma.BookingUncheckedUpdateManyWithoutCancelledByNestedInput
 }
 
 export type UserCreateWithoutRidesInput = {
@@ -848,6 +1133,8 @@ export type UserCreateWithoutRidesInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   vehicles?: Prisma.VehicleCreateNestedManyWithoutUserInput
   messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutPassengerInput
+  cancelledBookings?: Prisma.BookingCreateNestedManyWithoutCancelledByInput
 }
 
 export type UserUncheckedCreateWithoutRidesInput = {
@@ -871,6 +1158,8 @@ export type UserUncheckedCreateWithoutRidesInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   vehicles?: Prisma.VehicleUncheckedCreateNestedManyWithoutUserInput
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutPassengerInput
+  cancelledBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutCancelledByInput
 }
 
 export type UserCreateOrConnectWithoutRidesInput = {
@@ -910,6 +1199,8 @@ export type UserUpdateWithoutRidesInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   vehicles?: Prisma.VehicleUpdateManyWithoutUserNestedInput
   messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutPassengerNestedInput
+  cancelledBookings?: Prisma.BookingUpdateManyWithoutCancelledByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRidesInput = {
@@ -933,6 +1224,8 @@ export type UserUncheckedUpdateWithoutRidesInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   vehicles?: Prisma.VehicleUncheckedUpdateManyWithoutUserNestedInput
   messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutPassengerNestedInput
+  cancelledBookings?: Prisma.BookingUncheckedUpdateManyWithoutCancelledByNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -956,6 +1249,8 @@ export type UserCreateWithoutSessionsInput = {
   vehicles?: Prisma.VehicleCreateNestedManyWithoutUserInput
   rides?: Prisma.RideCreateNestedManyWithoutDriverInput
   messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutPassengerInput
+  cancelledBookings?: Prisma.BookingCreateNestedManyWithoutCancelledByInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -979,6 +1274,8 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   vehicles?: Prisma.VehicleUncheckedCreateNestedManyWithoutUserInput
   rides?: Prisma.RideUncheckedCreateNestedManyWithoutDriverInput
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutPassengerInput
+  cancelledBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutCancelledByInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -1018,6 +1315,8 @@ export type UserUpdateWithoutSessionsInput = {
   vehicles?: Prisma.VehicleUpdateManyWithoutUserNestedInput
   rides?: Prisma.RideUpdateManyWithoutDriverNestedInput
   messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutPassengerNestedInput
+  cancelledBookings?: Prisma.BookingUpdateManyWithoutCancelledByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -1041,6 +1340,8 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   vehicles?: Prisma.VehicleUncheckedUpdateManyWithoutUserNestedInput
   rides?: Prisma.RideUncheckedUpdateManyWithoutDriverNestedInput
   messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutPassengerNestedInput
+  cancelledBookings?: Prisma.BookingUncheckedUpdateManyWithoutCancelledByNestedInput
 }
 
 export type UserCreateWithoutAccountsInput = {
@@ -1064,6 +1365,8 @@ export type UserCreateWithoutAccountsInput = {
   vehicles?: Prisma.VehicleCreateNestedManyWithoutUserInput
   rides?: Prisma.RideCreateNestedManyWithoutDriverInput
   messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutPassengerInput
+  cancelledBookings?: Prisma.BookingCreateNestedManyWithoutCancelledByInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -1087,6 +1390,8 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   vehicles?: Prisma.VehicleUncheckedCreateNestedManyWithoutUserInput
   rides?: Prisma.RideUncheckedCreateNestedManyWithoutDriverInput
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutPassengerInput
+  cancelledBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutCancelledByInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -1126,6 +1431,8 @@ export type UserUpdateWithoutAccountsInput = {
   vehicles?: Prisma.VehicleUpdateManyWithoutUserNestedInput
   rides?: Prisma.RideUpdateManyWithoutDriverNestedInput
   messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutPassengerNestedInput
+  cancelledBookings?: Prisma.BookingUpdateManyWithoutCancelledByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -1149,6 +1456,8 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   vehicles?: Prisma.VehicleUncheckedUpdateManyWithoutUserNestedInput
   rides?: Prisma.RideUncheckedUpdateManyWithoutDriverNestedInput
   messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutPassengerNestedInput
+  cancelledBookings?: Prisma.BookingUncheckedUpdateManyWithoutCancelledByNestedInput
 }
 
 export type UserCreateWithoutVehiclesInput = {
@@ -1172,6 +1481,8 @@ export type UserCreateWithoutVehiclesInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   rides?: Prisma.RideCreateNestedManyWithoutDriverInput
   messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutPassengerInput
+  cancelledBookings?: Prisma.BookingCreateNestedManyWithoutCancelledByInput
 }
 
 export type UserUncheckedCreateWithoutVehiclesInput = {
@@ -1195,6 +1506,8 @@ export type UserUncheckedCreateWithoutVehiclesInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   rides?: Prisma.RideUncheckedCreateNestedManyWithoutDriverInput
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutPassengerInput
+  cancelledBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutCancelledByInput
 }
 
 export type UserCreateOrConnectWithoutVehiclesInput = {
@@ -1234,6 +1547,8 @@ export type UserUpdateWithoutVehiclesInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   rides?: Prisma.RideUpdateManyWithoutDriverNestedInput
   messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutPassengerNestedInput
+  cancelledBookings?: Prisma.BookingUpdateManyWithoutCancelledByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVehiclesInput = {
@@ -1257,6 +1572,8 @@ export type UserUncheckedUpdateWithoutVehiclesInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   rides?: Prisma.RideUncheckedUpdateManyWithoutDriverNestedInput
   messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutPassengerNestedInput
+  cancelledBookings?: Prisma.BookingUncheckedUpdateManyWithoutCancelledByNestedInput
 }
 
 
@@ -1270,6 +1587,8 @@ export type UserCountOutputType = {
   vehicles: number
   rides: number
   messages: number
+  bookings: number
+  cancelledBookings: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1278,6 +1597,8 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   vehicles?: boolean | UserCountOutputTypeCountVehiclesArgs
   rides?: boolean | UserCountOutputTypeCountRidesArgs
   messages?: boolean | UserCountOutputTypeCountMessagesArgs
+  bookings?: boolean | UserCountOutputTypeCountBookingsArgs
+  cancelledBookings?: boolean | UserCountOutputTypeCountCancelledBookingsArgs
 }
 
 /**
@@ -1325,6 +1646,20 @@ export type UserCountOutputTypeCountMessagesArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.MessageWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountBookingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BookingWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCancelledBookingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BookingWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1348,6 +1683,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   vehicles?: boolean | Prisma.User$vehiclesArgs<ExtArgs>
   rides?: boolean | Prisma.User$ridesArgs<ExtArgs>
   messages?: boolean | Prisma.User$messagesArgs<ExtArgs>
+  bookings?: boolean | Prisma.User$bookingsArgs<ExtArgs>
+  cancelledBookings?: boolean | Prisma.User$cancelledBookingsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1415,6 +1752,8 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   vehicles?: boolean | Prisma.User$vehiclesArgs<ExtArgs>
   rides?: boolean | Prisma.User$ridesArgs<ExtArgs>
   messages?: boolean | Prisma.User$messagesArgs<ExtArgs>
+  bookings?: boolean | Prisma.User$bookingsArgs<ExtArgs>
+  cancelledBookings?: boolean | Prisma.User$cancelledBookingsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1428,6 +1767,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     vehicles: Prisma.$VehiclePayload<ExtArgs>[]
     rides: Prisma.$RidePayload<ExtArgs>[]
     messages: Prisma.$MessagePayload<ExtArgs>[]
+    bookings: Prisma.$BookingPayload<ExtArgs>[]
+    cancelledBookings: Prisma.$BookingPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1845,6 +2186,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   vehicles<T extends Prisma.User$vehiclesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$vehiclesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VehiclePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   rides<T extends Prisma.User$ridesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ridesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RidePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   messages<T extends Prisma.User$messagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bookings<T extends Prisma.User$bookingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  cancelledBookings<T extends Prisma.User$cancelledBookingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$cancelledBookingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2400,6 +2743,54 @@ export type User$messagesArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.MessageScalarFieldEnum | Prisma.MessageScalarFieldEnum[]
+}
+
+/**
+ * User.bookings
+ */
+export type User$bookingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Booking
+   */
+  select?: Prisma.BookingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Booking
+   */
+  omit?: Prisma.BookingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BookingInclude<ExtArgs> | null
+  where?: Prisma.BookingWhereInput
+  orderBy?: Prisma.BookingOrderByWithRelationInput | Prisma.BookingOrderByWithRelationInput[]
+  cursor?: Prisma.BookingWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BookingScalarFieldEnum | Prisma.BookingScalarFieldEnum[]
+}
+
+/**
+ * User.cancelledBookings
+ */
+export type User$cancelledBookingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Booking
+   */
+  select?: Prisma.BookingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Booking
+   */
+  omit?: Prisma.BookingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BookingInclude<ExtArgs> | null
+  where?: Prisma.BookingWhereInput
+  orderBy?: Prisma.BookingOrderByWithRelationInput | Prisma.BookingOrderByWithRelationInput[]
+  cursor?: Prisma.BookingWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BookingScalarFieldEnum | Prisma.BookingScalarFieldEnum[]
 }
 
 /**
