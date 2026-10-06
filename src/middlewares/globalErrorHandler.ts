@@ -16,7 +16,7 @@ import { envVars } from "../config/env";
 import { Prisma } from "../generated/prisma/client";
 import { TErrorResponse, TErrorSources } from "../interfaces/error.interface";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 export const globalErrorHandler = async (
   err: any,
   req: Request,

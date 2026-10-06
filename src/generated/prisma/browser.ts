@@ -23,10 +23,20 @@ export * from './enums.js';
  */
 export type Booking = Prisma.BookingModel
 /**
+ * Model Favorite
+ * 
+ */
+export type Favorite = Prisma.FavoriteModel
+/**
  * Model Message
  * 
  */
 export type Message = Prisma.MessageModel
+/**
+ * Model Rating
+ * 
+ */
+export type Rating = Prisma.RatingModel
 /**
  * Model Ride
  * 

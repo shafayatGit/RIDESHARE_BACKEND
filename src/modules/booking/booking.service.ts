@@ -121,7 +121,15 @@ const getMyBookings = async (user: IRequestUser) => {
           destinationAddress: true,
           departureTime: true,
           status: true,
-          driver: { select: { id: true, name: true, image: true } },
+          driver: {
+            select: {
+              id: true,
+              name: true,
+              image: true,
+              avgRatingAsDriver: true,
+              ratingCount: true,
+            },
+          },
           vehicle: { select: { model: true, color: true, plate: true } },
         },
       },

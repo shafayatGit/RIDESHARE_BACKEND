@@ -1,0 +1,26 @@
+model Rating {
+  id String @id @default(uuid())
+
+  /// The rider being rated. A rating belongs to the rider, not to one ride.
+  riderId String
+  /// The passenger giving the rating.
+  raterId String
+  /// Optional provenance: which booking this rating came from.
+  bookingId String?
+
+  rating  Int
+  review  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  rider   User     @relation("RatingRider", fields: [riderId], references: [id], onDelete: Cascade)
+  rater   User     @relation("RatingRater", fields: [raterId], references: [id], onDelete: Cascade)
+  booking Booking? @relation(fields: [bookingId], references: [id], onDelete: SetNull)
+
+  /// One rating per rider per rater.
+  @@unique([riderId, raterId])
+  @@index([riderId])
+  @@index([raterId])
+  @@index([bookingId])
+  @@map("rating")
+}

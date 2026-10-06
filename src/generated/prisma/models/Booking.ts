@@ -297,6 +297,7 @@ export type BookingWhereInput = {
   pickupCheckpoint?: Prisma.XOR<Prisma.RideCheckpointScalarRelationFilter, Prisma.RideCheckpointWhereInput>
   dropCheckpoint?: Prisma.XOR<Prisma.RideCheckpointScalarRelationFilter, Prisma.RideCheckpointWhereInput>
   cancelledBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  ratings?: Prisma.RatingListRelationFilter
 }
 
 export type BookingOrderByWithRelationInput = {
@@ -319,6 +320,7 @@ export type BookingOrderByWithRelationInput = {
   pickupCheckpoint?: Prisma.RideCheckpointOrderByWithRelationInput
   dropCheckpoint?: Prisma.RideCheckpointOrderByWithRelationInput
   cancelledBy?: Prisma.UserOrderByWithRelationInput
+  ratings?: Prisma.RatingOrderByRelationAggregateInput
 }
 
 export type BookingWhereUniqueInput = Prisma.AtLeast<{
@@ -344,6 +346,7 @@ export type BookingWhereUniqueInput = Prisma.AtLeast<{
   pickupCheckpoint?: Prisma.XOR<Prisma.RideCheckpointScalarRelationFilter, Prisma.RideCheckpointWhereInput>
   dropCheckpoint?: Prisma.XOR<Prisma.RideCheckpointScalarRelationFilter, Prisma.RideCheckpointWhereInput>
   cancelledBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  ratings?: Prisma.RatingListRelationFilter
 }, "id">
 
 export type BookingOrderByWithAggregationInput = {
@@ -403,6 +406,7 @@ export type BookingCreateInput = {
   pickupCheckpoint: Prisma.RideCheckpointCreateNestedOneWithoutPickupBookingsInput
   dropCheckpoint: Prisma.RideCheckpointCreateNestedOneWithoutDropBookingsInput
   cancelledBy?: Prisma.UserCreateNestedOneWithoutCancelledBookingsInput
+  ratings?: Prisma.RatingCreateNestedManyWithoutBookingInput
 }
 
 export type BookingUncheckedCreateInput = {
@@ -420,6 +424,7 @@ export type BookingUncheckedCreateInput = {
   cancelledAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  ratings?: Prisma.RatingUncheckedCreateNestedManyWithoutBookingInput
 }
 
 export type BookingUpdateInput = {
@@ -437,6 +442,7 @@ export type BookingUpdateInput = {
   pickupCheckpoint?: Prisma.RideCheckpointUpdateOneRequiredWithoutPickupBookingsNestedInput
   dropCheckpoint?: Prisma.RideCheckpointUpdateOneRequiredWithoutDropBookingsNestedInput
   cancelledBy?: Prisma.UserUpdateOneWithoutCancelledBookingsNestedInput
+  ratings?: Prisma.RatingUpdateManyWithoutBookingNestedInput
 }
 
 export type BookingUncheckedUpdateInput = {
@@ -454,6 +460,7 @@ export type BookingUncheckedUpdateInput = {
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ratings?: Prisma.RatingUncheckedUpdateManyWithoutBookingNestedInput
 }
 
 export type BookingCreateManyInput = {
@@ -563,6 +570,11 @@ export type BookingSumOrderByAggregateInput = {
   costShareAmount?: Prisma.SortOrder
 }
 
+export type BookingNullableScalarRelationFilter = {
+  is?: Prisma.BookingWhereInput | null
+  isNot?: Prisma.BookingWhereInput | null
+}
+
 export type BookingListRelationFilter = {
   every?: Prisma.BookingWhereInput
   some?: Prisma.BookingWhereInput
@@ -607,6 +619,22 @@ export type NullableStringFieldUpdateOperationsInput = {
 
 export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
+}
+
+export type BookingCreateNestedOneWithoutRatingsInput = {
+  create?: Prisma.XOR<Prisma.BookingCreateWithoutRatingsInput, Prisma.BookingUncheckedCreateWithoutRatingsInput>
+  connectOrCreate?: Prisma.BookingCreateOrConnectWithoutRatingsInput
+  connect?: Prisma.BookingWhereUniqueInput
+}
+
+export type BookingUpdateOneWithoutRatingsNestedInput = {
+  create?: Prisma.XOR<Prisma.BookingCreateWithoutRatingsInput, Prisma.BookingUncheckedCreateWithoutRatingsInput>
+  connectOrCreate?: Prisma.BookingCreateOrConnectWithoutRatingsInput
+  upsert?: Prisma.BookingUpsertWithoutRatingsInput
+  disconnect?: Prisma.BookingWhereInput | boolean
+  delete?: Prisma.BookingWhereInput | boolean
+  connect?: Prisma.BookingWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BookingUpdateToOneWithWhereWithoutRatingsInput, Prisma.BookingUpdateWithoutRatingsInput>, Prisma.BookingUncheckedUpdateWithoutRatingsInput>
 }
 
 export type BookingCreateNestedManyWithoutRideInput = {
@@ -819,6 +847,90 @@ export type BookingUncheckedUpdateManyWithoutCancelledByNestedInput = {
   deleteMany?: Prisma.BookingScalarWhereInput | Prisma.BookingScalarWhereInput[]
 }
 
+export type BookingCreateWithoutRatingsInput = {
+  id?: string
+  seatsBooked: number
+  costShareAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.BookingStatus
+  bookingTime?: Date | string
+  cancellationReason?: string | null
+  cancelledAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  ride: Prisma.RideCreateNestedOneWithoutBookingsInput
+  passenger: Prisma.UserCreateNestedOneWithoutBookingsInput
+  pickupCheckpoint: Prisma.RideCheckpointCreateNestedOneWithoutPickupBookingsInput
+  dropCheckpoint: Prisma.RideCheckpointCreateNestedOneWithoutDropBookingsInput
+  cancelledBy?: Prisma.UserCreateNestedOneWithoutCancelledBookingsInput
+}
+
+export type BookingUncheckedCreateWithoutRatingsInput = {
+  id?: string
+  rideId: string
+  passengerId: string
+  pickupCheckpointId: string
+  dropCheckpointId: string
+  seatsBooked: number
+  costShareAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.BookingStatus
+  bookingTime?: Date | string
+  cancelledById?: string | null
+  cancellationReason?: string | null
+  cancelledAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type BookingCreateOrConnectWithoutRatingsInput = {
+  where: Prisma.BookingWhereUniqueInput
+  create: Prisma.XOR<Prisma.BookingCreateWithoutRatingsInput, Prisma.BookingUncheckedCreateWithoutRatingsInput>
+}
+
+export type BookingUpsertWithoutRatingsInput = {
+  update: Prisma.XOR<Prisma.BookingUpdateWithoutRatingsInput, Prisma.BookingUncheckedUpdateWithoutRatingsInput>
+  create: Prisma.XOR<Prisma.BookingCreateWithoutRatingsInput, Prisma.BookingUncheckedCreateWithoutRatingsInput>
+  where?: Prisma.BookingWhereInput
+}
+
+export type BookingUpdateToOneWithWhereWithoutRatingsInput = {
+  where?: Prisma.BookingWhereInput
+  data: Prisma.XOR<Prisma.BookingUpdateWithoutRatingsInput, Prisma.BookingUncheckedUpdateWithoutRatingsInput>
+}
+
+export type BookingUpdateWithoutRatingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  seatsBooked?: Prisma.IntFieldUpdateOperationsInput | number
+  costShareAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+  bookingTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ride?: Prisma.RideUpdateOneRequiredWithoutBookingsNestedInput
+  passenger?: Prisma.UserUpdateOneRequiredWithoutBookingsNestedInput
+  pickupCheckpoint?: Prisma.RideCheckpointUpdateOneRequiredWithoutPickupBookingsNestedInput
+  dropCheckpoint?: Prisma.RideCheckpointUpdateOneRequiredWithoutDropBookingsNestedInput
+  cancelledBy?: Prisma.UserUpdateOneWithoutCancelledBookingsNestedInput
+}
+
+export type BookingUncheckedUpdateWithoutRatingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  rideId?: Prisma.StringFieldUpdateOperationsInput | string
+  passengerId?: Prisma.StringFieldUpdateOperationsInput | string
+  pickupCheckpointId?: Prisma.StringFieldUpdateOperationsInput | string
+  dropCheckpointId?: Prisma.StringFieldUpdateOperationsInput | string
+  seatsBooked?: Prisma.IntFieldUpdateOperationsInput | number
+  costShareAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+  bookingTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  cancelledById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type BookingCreateWithoutRideInput = {
   id?: string
   seatsBooked: number
@@ -833,6 +945,7 @@ export type BookingCreateWithoutRideInput = {
   pickupCheckpoint: Prisma.RideCheckpointCreateNestedOneWithoutPickupBookingsInput
   dropCheckpoint: Prisma.RideCheckpointCreateNestedOneWithoutDropBookingsInput
   cancelledBy?: Prisma.UserCreateNestedOneWithoutCancelledBookingsInput
+  ratings?: Prisma.RatingCreateNestedManyWithoutBookingInput
 }
 
 export type BookingUncheckedCreateWithoutRideInput = {
@@ -849,6 +962,7 @@ export type BookingUncheckedCreateWithoutRideInput = {
   cancelledAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  ratings?: Prisma.RatingUncheckedCreateNestedManyWithoutBookingInput
 }
 
 export type BookingCreateOrConnectWithoutRideInput = {
@@ -911,6 +1025,7 @@ export type BookingCreateWithoutPickupCheckpointInput = {
   passenger: Prisma.UserCreateNestedOneWithoutBookingsInput
   dropCheckpoint: Prisma.RideCheckpointCreateNestedOneWithoutDropBookingsInput
   cancelledBy?: Prisma.UserCreateNestedOneWithoutCancelledBookingsInput
+  ratings?: Prisma.RatingCreateNestedManyWithoutBookingInput
 }
 
 export type BookingUncheckedCreateWithoutPickupCheckpointInput = {
@@ -927,6 +1042,7 @@ export type BookingUncheckedCreateWithoutPickupCheckpointInput = {
   cancelledAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  ratings?: Prisma.RatingUncheckedCreateNestedManyWithoutBookingInput
 }
 
 export type BookingCreateOrConnectWithoutPickupCheckpointInput = {
@@ -953,6 +1069,7 @@ export type BookingCreateWithoutDropCheckpointInput = {
   passenger: Prisma.UserCreateNestedOneWithoutBookingsInput
   pickupCheckpoint: Prisma.RideCheckpointCreateNestedOneWithoutPickupBookingsInput
   cancelledBy?: Prisma.UserCreateNestedOneWithoutCancelledBookingsInput
+  ratings?: Prisma.RatingCreateNestedManyWithoutBookingInput
 }
 
 export type BookingUncheckedCreateWithoutDropCheckpointInput = {
@@ -969,6 +1086,7 @@ export type BookingUncheckedCreateWithoutDropCheckpointInput = {
   cancelledAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  ratings?: Prisma.RatingUncheckedCreateNestedManyWithoutBookingInput
 }
 
 export type BookingCreateOrConnectWithoutDropCheckpointInput = {
@@ -1027,6 +1145,7 @@ export type BookingCreateWithoutPassengerInput = {
   pickupCheckpoint: Prisma.RideCheckpointCreateNestedOneWithoutPickupBookingsInput
   dropCheckpoint: Prisma.RideCheckpointCreateNestedOneWithoutDropBookingsInput
   cancelledBy?: Prisma.UserCreateNestedOneWithoutCancelledBookingsInput
+  ratings?: Prisma.RatingCreateNestedManyWithoutBookingInput
 }
 
 export type BookingUncheckedCreateWithoutPassengerInput = {
@@ -1043,6 +1162,7 @@ export type BookingUncheckedCreateWithoutPassengerInput = {
   cancelledAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  ratings?: Prisma.RatingUncheckedCreateNestedManyWithoutBookingInput
 }
 
 export type BookingCreateOrConnectWithoutPassengerInput = {
@@ -1069,6 +1189,7 @@ export type BookingCreateWithoutCancelledByInput = {
   passenger: Prisma.UserCreateNestedOneWithoutBookingsInput
   pickupCheckpoint: Prisma.RideCheckpointCreateNestedOneWithoutPickupBookingsInput
   dropCheckpoint: Prisma.RideCheckpointCreateNestedOneWithoutDropBookingsInput
+  ratings?: Prisma.RatingCreateNestedManyWithoutBookingInput
 }
 
 export type BookingUncheckedCreateWithoutCancelledByInput = {
@@ -1085,6 +1206,7 @@ export type BookingUncheckedCreateWithoutCancelledByInput = {
   cancelledAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  ratings?: Prisma.RatingUncheckedCreateNestedManyWithoutBookingInput
 }
 
 export type BookingCreateOrConnectWithoutCancelledByInput = {
@@ -1159,6 +1281,7 @@ export type BookingUpdateWithoutRideInput = {
   pickupCheckpoint?: Prisma.RideCheckpointUpdateOneRequiredWithoutPickupBookingsNestedInput
   dropCheckpoint?: Prisma.RideCheckpointUpdateOneRequiredWithoutDropBookingsNestedInput
   cancelledBy?: Prisma.UserUpdateOneWithoutCancelledBookingsNestedInput
+  ratings?: Prisma.RatingUpdateManyWithoutBookingNestedInput
 }
 
 export type BookingUncheckedUpdateWithoutRideInput = {
@@ -1175,6 +1298,7 @@ export type BookingUncheckedUpdateWithoutRideInput = {
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ratings?: Prisma.RatingUncheckedUpdateManyWithoutBookingNestedInput
 }
 
 export type BookingUncheckedUpdateManyWithoutRideInput = {
@@ -1239,6 +1363,7 @@ export type BookingUpdateWithoutPickupCheckpointInput = {
   passenger?: Prisma.UserUpdateOneRequiredWithoutBookingsNestedInput
   dropCheckpoint?: Prisma.RideCheckpointUpdateOneRequiredWithoutDropBookingsNestedInput
   cancelledBy?: Prisma.UserUpdateOneWithoutCancelledBookingsNestedInput
+  ratings?: Prisma.RatingUpdateManyWithoutBookingNestedInput
 }
 
 export type BookingUncheckedUpdateWithoutPickupCheckpointInput = {
@@ -1255,6 +1380,7 @@ export type BookingUncheckedUpdateWithoutPickupCheckpointInput = {
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ratings?: Prisma.RatingUncheckedUpdateManyWithoutBookingNestedInput
 }
 
 export type BookingUncheckedUpdateManyWithoutPickupCheckpointInput = {
@@ -1287,6 +1413,7 @@ export type BookingUpdateWithoutDropCheckpointInput = {
   passenger?: Prisma.UserUpdateOneRequiredWithoutBookingsNestedInput
   pickupCheckpoint?: Prisma.RideCheckpointUpdateOneRequiredWithoutPickupBookingsNestedInput
   cancelledBy?: Prisma.UserUpdateOneWithoutCancelledBookingsNestedInput
+  ratings?: Prisma.RatingUpdateManyWithoutBookingNestedInput
 }
 
 export type BookingUncheckedUpdateWithoutDropCheckpointInput = {
@@ -1303,6 +1430,7 @@ export type BookingUncheckedUpdateWithoutDropCheckpointInput = {
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ratings?: Prisma.RatingUncheckedUpdateManyWithoutBookingNestedInput
 }
 
 export type BookingUncheckedUpdateManyWithoutDropCheckpointInput = {
@@ -1367,6 +1495,7 @@ export type BookingUpdateWithoutPassengerInput = {
   pickupCheckpoint?: Prisma.RideCheckpointUpdateOneRequiredWithoutPickupBookingsNestedInput
   dropCheckpoint?: Prisma.RideCheckpointUpdateOneRequiredWithoutDropBookingsNestedInput
   cancelledBy?: Prisma.UserUpdateOneWithoutCancelledBookingsNestedInput
+  ratings?: Prisma.RatingUpdateManyWithoutBookingNestedInput
 }
 
 export type BookingUncheckedUpdateWithoutPassengerInput = {
@@ -1383,6 +1512,7 @@ export type BookingUncheckedUpdateWithoutPassengerInput = {
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ratings?: Prisma.RatingUncheckedUpdateManyWithoutBookingNestedInput
 }
 
 export type BookingUncheckedUpdateManyWithoutPassengerInput = {
@@ -1415,6 +1545,7 @@ export type BookingUpdateWithoutCancelledByInput = {
   passenger?: Prisma.UserUpdateOneRequiredWithoutBookingsNestedInput
   pickupCheckpoint?: Prisma.RideCheckpointUpdateOneRequiredWithoutPickupBookingsNestedInput
   dropCheckpoint?: Prisma.RideCheckpointUpdateOneRequiredWithoutDropBookingsNestedInput
+  ratings?: Prisma.RatingUpdateManyWithoutBookingNestedInput
 }
 
 export type BookingUncheckedUpdateWithoutCancelledByInput = {
@@ -1431,6 +1562,7 @@ export type BookingUncheckedUpdateWithoutCancelledByInput = {
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ratings?: Prisma.RatingUncheckedUpdateManyWithoutBookingNestedInput
 }
 
 export type BookingUncheckedUpdateManyWithoutCancelledByInput = {
@@ -1449,6 +1581,35 @@ export type BookingUncheckedUpdateManyWithoutCancelledByInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+
+/**
+ * Count Type BookingCountOutputType
+ */
+
+export type BookingCountOutputType = {
+  ratings: number
+}
+
+export type BookingCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  ratings?: boolean | BookingCountOutputTypeCountRatingsArgs
+}
+
+/**
+ * BookingCountOutputType without action
+ */
+export type BookingCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BookingCountOutputType
+   */
+  select?: Prisma.BookingCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * BookingCountOutputType without action
+ */
+export type BookingCountOutputTypeCountRatingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RatingWhereInput
+}
 
 
 export type BookingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1471,6 +1632,8 @@ export type BookingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   pickupCheckpoint?: boolean | Prisma.RideCheckpointDefaultArgs<ExtArgs>
   dropCheckpoint?: boolean | Prisma.RideCheckpointDefaultArgs<ExtArgs>
   cancelledBy?: boolean | Prisma.Booking$cancelledByArgs<ExtArgs>
+  ratings?: boolean | Prisma.Booking$ratingsArgs<ExtArgs>
+  _count?: boolean | Prisma.BookingCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["booking"]>
 
 export type BookingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1541,6 +1704,8 @@ export type BookingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   pickupCheckpoint?: boolean | Prisma.RideCheckpointDefaultArgs<ExtArgs>
   dropCheckpoint?: boolean | Prisma.RideCheckpointDefaultArgs<ExtArgs>
   cancelledBy?: boolean | Prisma.Booking$cancelledByArgs<ExtArgs>
+  ratings?: boolean | Prisma.Booking$ratingsArgs<ExtArgs>
+  _count?: boolean | Prisma.BookingCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type BookingIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   ride?: boolean | Prisma.RideDefaultArgs<ExtArgs>
@@ -1565,6 +1730,7 @@ export type $BookingPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     pickupCheckpoint: Prisma.$RideCheckpointPayload<ExtArgs>
     dropCheckpoint: Prisma.$RideCheckpointPayload<ExtArgs>
     cancelledBy: Prisma.$UserPayload<ExtArgs> | null
+    ratings: Prisma.$RatingPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1980,6 +2146,7 @@ export interface Prisma__BookingClient<T, Null = never, ExtArgs extends runtime.
   pickupCheckpoint<T extends Prisma.RideCheckpointDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RideCheckpointDefaultArgs<ExtArgs>>): Prisma.Prisma__RideCheckpointClient<runtime.Types.Result.GetResult<Prisma.$RideCheckpointPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   dropCheckpoint<T extends Prisma.RideCheckpointDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RideCheckpointDefaultArgs<ExtArgs>>): Prisma.Prisma__RideCheckpointClient<runtime.Types.Result.GetResult<Prisma.$RideCheckpointPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   cancelledBy<T extends Prisma.Booking$cancelledByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Booking$cancelledByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  ratings<T extends Prisma.Booking$ratingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Booking$ratingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2440,6 +2607,30 @@ export type Booking$cancelledByArgs<ExtArgs extends runtime.Types.Extensions.Int
    */
   include?: Prisma.UserInclude<ExtArgs> | null
   where?: Prisma.UserWhereInput
+}
+
+/**
+ * Booking.ratings
+ */
+export type Booking$ratingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Rating
+   */
+  select?: Prisma.RatingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Rating
+   */
+  omit?: Prisma.RatingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RatingInclude<ExtArgs> | null
+  where?: Prisma.RatingWhereInput
+  orderBy?: Prisma.RatingOrderByWithRelationInput | Prisma.RatingOrderByWithRelationInput[]
+  cursor?: Prisma.RatingWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RatingScalarFieldEnum | Prisma.RatingScalarFieldEnum[]
 }
 
 /**

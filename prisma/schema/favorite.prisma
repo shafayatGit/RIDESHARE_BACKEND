@@ -1,0 +1,15 @@
+model Favorite {
+  id          String   @id @default(uuid())
+  passengerId String
+  riderId     String
+
+  createdAt DateTime @default(now())
+
+  passenger User @relation("FavoritePassenger", fields: [passengerId], references: [id], onDelete: Cascade)
+  rider     User @relation("FavoriteRider", fields: [riderId], references: [id], onDelete: Cascade)
+
+  @@unique([passengerId, riderId])
+  @@index([passengerId])
+  @@index([riderId])
+  @@map("favorite")
+}

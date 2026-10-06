@@ -22,6 +22,7 @@ model Booking {
   pickupCheckpoint RideCheckpoint @relation("PickupBookings", fields: [pickupCheckpointId], references: [id], onDelete: Cascade)
   dropCheckpoint   RideCheckpoint @relation("DropBookings", fields: [dropCheckpointId], references: [id], onDelete: Cascade)
   cancelledBy      User?          @relation("CancelledBookings", fields: [cancelledById], references: [id], onDelete: SetNull)
+  ratings          Rating[]
 
   @@index([rideId])
   @@index([passengerId])

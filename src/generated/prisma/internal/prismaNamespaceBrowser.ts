@@ -52,7 +52,9 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   Booking: 'Booking',
+  Favorite: 'Favorite',
   Message: 'Message',
+  Rating: 'Rating',
   Ride: 'Ride',
   RideCheckpoint: 'RideCheckpoint',
   User: 'User',
@@ -98,6 +100,16 @@ export const BookingScalarFieldEnum = {
 export type BookingScalarFieldEnum = (typeof BookingScalarFieldEnum)[keyof typeof BookingScalarFieldEnum]
 
 
+export const FavoriteScalarFieldEnum = {
+  id: 'id',
+  passengerId: 'passengerId',
+  riderId: 'riderId',
+  createdAt: 'createdAt'
+} as const
+
+export type FavoriteScalarFieldEnum = (typeof FavoriteScalarFieldEnum)[keyof typeof FavoriteScalarFieldEnum]
+
+
 export const MessageScalarFieldEnum = {
   id: 'id',
   rideId: 'rideId',
@@ -108,6 +120,20 @@ export const MessageScalarFieldEnum = {
 } as const
 
 export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
+
+
+export const RatingScalarFieldEnum = {
+  id: 'id',
+  riderId: 'riderId',
+  raterId: 'raterId',
+  bookingId: 'bookingId',
+  rating: 'rating',
+  review: 'review',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RatingScalarFieldEnum = (typeof RatingScalarFieldEnum)[keyof typeof RatingScalarFieldEnum]
 
 
 export const RideScalarFieldEnum = {
@@ -160,6 +186,7 @@ export const UserScalarFieldEnum = {
   phoneNumber: 'phoneNumber',
   isVerified: 'isVerified',
   avgRatingAsDriver: 'avgRatingAsDriver',
+  ratingCount: 'ratingCount',
   cancellationCount: 'cancellationCount',
   accountStatus: 'accountStatus',
   isAdmin: 'isAdmin',

@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { authMiddleware } from "../../middlewares/authMiddleware";
 import { validateRequest } from "../../middlewares/validateRequest";
 import { authController } from "./auth.controller";
 import {
@@ -9,6 +10,9 @@ import {
 } from "./auth.validation";
 
 const router = Router();
+
+// Applied per-route: the other /auth endpoints are intentionally public.
+router.get("/me", authMiddleware, authController.getMe);
 
 router.post("/register", validateRequest(registerSchema), authController.registerUser);
 

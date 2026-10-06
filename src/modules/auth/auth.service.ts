@@ -175,7 +175,33 @@ const softDeleteUser = async (req: Request) => {
   return currentUser;
 };
 
+const getMe = async (userId: string) => {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      image: true,
+      phoneNumber: true,
+      isVerified: true,
+      avgRatingAsDriver: true,
+      ratingCount: true,
+      cancellationCount: true,
+      accountStatus: true,
+      isAdmin: true,
+    },
+  });
+
+  if (!user) {
+    throw new AppError(status.NOT_FOUND, "User not found");
+  }
+
+  return user;
+};
+
 export const authService = {
+  getMe,
   registerUser,
   loginUser,
   sendOTP,

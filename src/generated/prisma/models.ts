@@ -9,7 +9,9 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/Booking.js'
+export type * from './models/Favorite.js'
 export type * from './models/Message.js'
+export type * from './models/Rating.js'
 export type * from './models/Ride.js'
 export type * from './models/RideCheckpoint.js'
 export type * from './models/User.js'

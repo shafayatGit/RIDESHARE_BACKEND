@@ -1,8 +1,17 @@
 import z from "zod";
-import { RideStatus } from "../../generated/prisma/enums";
+import { CheckpointType, RideStatus } from "../../generated/prisma/enums";
 
 export const rideParamsSchema = z.object({
   id: z.string().min(1),
+});
+
+const rideCheckpointInputSchema = z.object({
+  type: z.enum(CheckpointType),
+  address: z.string().min(1).max(200),
+  lat: z.number().min(-90).max(90),
+  lng: z.number().min(-180).max(180),
+  sequenceOrder: z.number().int().min(1).optional(),
+  estimatedTime: z.coerce.date().optional(),
 });
 
 export const createRideSchema = z.object({
@@ -17,6 +26,17 @@ export const createRideSchema = z.object({
   totalSeats: z.number().int().min(1),
   pricePerSeat: z.number().positive(),
   isFemaleOnly: z.boolean().optional(),
+  checkpoints: z
+    .array(rideCheckpointInputSchema)
+    .max(30)
+    .refine(
+      (checkpoints) => {
+        const orders = checkpoints.map((c, i) => c.sequenceOrder ?? i + 1);
+        return new Set(orders).size === orders.length;
+      },
+      { message: "Checkpoint sequenceOrder values must be unique" },
+    )
+    .optional(),
 });
 
 export const updateRideSchema = z
@@ -38,3 +58,16 @@ export const updateRideSchema = z
   .refine((data) => Object.keys(data).length > 0, {
     message: "At least one field must be provided",
   });
+
+const stopCoordinateSchema = z.object({
+  lat: z.number().min(-90).max(90),
+  lng: z.number().min(-180).max(180),
+});
+
+export const estimateRideSchema = z.object({
+  originLat: z.number().min(-90).max(90),
+  originLng: z.number().min(-180).max(180),
+  destinationLat: z.number().min(-90).max(90),
+  destinationLng: z.number().min(-180).max(180),
+  stops: z.array(stopCoordinateSchema).max(30).optional(),
+});

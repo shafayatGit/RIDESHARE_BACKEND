@@ -8,6 +8,7 @@ model User {
   phoneNumber       String?
   isVerified        Boolean       @default(false)
   avgRatingAsDriver Float         @default(0)
+  ratingCount       Int           @default(0)
   cancellationCount Int           @default(0)
   accountStatus     AccountStatus @default(ACTIVE)
   isAdmin           Boolean       @default(false)
@@ -16,13 +17,17 @@ model User {
   createdAt         DateTime      @default(now())
   updatedAt         DateTime      @updatedAt
 
-  sessions Session[]
-  accounts Account[]
-  vehicles Vehicle[]
-  rides    Ride[]
-  messages Message[]
-  bookings Booking[]
-  cancelledBookings Booking[] @relation("CancelledBookings")
+  sessions          Session[]
+  accounts          Account[]
+  vehicles          Vehicle[]
+  rides             Ride[]
+  messages          Message[]
+  bookings          Booking[]
+  cancelledBookings Booking[]         @relation("CancelledBookings")
+  favoritesGiven    Favorite[]        @relation("FavoritePassenger")
+  favoritesReceived Favorite[]        @relation("FavoriteRider")
+  ratingsGiven      Rating[]          @relation("RatingRater")
+  ratingsReceived   Rating[]          @relation("RatingRider")
 
   @@index([email])
   @@map("user")

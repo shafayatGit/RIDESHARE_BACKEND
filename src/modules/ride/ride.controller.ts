@@ -41,6 +41,18 @@ const getAllRides = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getMyRides = catchAsync(async (req: Request, res: Response) => {
+  const user = req.user;
+  const result = await rideService.getMyRides(user.id);
+
+  sendResponse(res, {
+    httpStatusCode: status.OK,
+    success: true,
+    message: "Rides retrieved successfully",
+    data: result,
+  });
+});
+
 const updateRide = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params as { id: string };
   const payload: IUpdateRide = req.body;
@@ -68,10 +80,24 @@ const deleteRide = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const estimateRidePrice = catchAsync(async (req: Request, res: Response) => {
+  const payload = req.body;
+  const result = await rideService.estimateRidePrice(payload);
+
+  sendResponse(res, {
+    httpStatusCode: status.OK,
+    success: true,
+    message: "Ride price estimate calculated successfully",
+    data: result,
+  });
+});
+
 export const rideController = {
   createRide,
   getRideById,
   getAllRides,
+  getMyRides,
   updateRide,
   deleteRide,
+  estimateRidePrice,
 };

@@ -24,7 +24,14 @@ interface EnvConfig {
   };
   ADMIN_EMAIL: string;
   ADMIN_PASSWORD: string;
+  /**
+   * Fallback price per mile, in USD, used to price a ride when there are no
+   * existing rides to derive a market average from. Defaults to 1.
+   */
+  COST_PER_MILE: number;
 }
+
+const DEFAULT_COST_PER_MILE = 1;
 
 const loadEnvVariables = (): EnvConfig => {
   const requiredEnvVariables = [
@@ -56,6 +63,21 @@ const loadEnvVariables = (): EnvConfig => {
     }
   });
 
+  // Optional: an unparseable value must not silently price rides at the
+  // fallback rate, so it is rejected the same way a missing one would be.
+  const rawCostPerMile = process.env.COST_PER_MILE;
+  const costPerMile =
+    rawCostPerMile === undefined || rawCostPerMile.trim() === ""
+      ? DEFAULT_COST_PER_MILE
+      : Number(rawCostPerMile);
+
+  if (!Number.isFinite(costPerMile) || costPerMile <= 0) {
+    throw new AppError(
+      status.INTERNAL_SERVER_ERROR,
+      `Environment variable COST_PER_MILE must be a positive number but was "${rawCostPerMile}".`,
+    );
+  }
+
   return {
     NODE_ENV: process.env.NODE_ENV as string,
     PORT: process.env.PORT as string,
@@ -76,6 +98,7 @@ const loadEnvVariables = (): EnvConfig => {
     },
     ADMIN_EMAIL: process.env.ADMIN_EMAIL as string,
     ADMIN_PASSWORD: process.env.ADMIN_PASSWORD as string,
+    COST_PER_MILE: costPerMile,
   };
 };
 
