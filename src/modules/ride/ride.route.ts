@@ -11,6 +11,13 @@ import {
 
 const route = Router();
 
+route.get("/", rideController.getAllRides);
+route.get(
+  "/:id",
+  validateRequest(rideParamsSchema, "params"),
+  rideController.getRideById,
+);
+
 route.use(authMiddleware);
 
 route.post(
@@ -25,16 +32,8 @@ route.post(
   rideController.estimateRidePrice,
 );
 
-route.get("/", rideController.getAllRides);
-
 // Declared before "/:id" so it is not captured as a ride id.
 route.get("/my", rideController.getMyRides);
-
-route.get(
-  "/:id",
-  validateRequest(rideParamsSchema, "params"),
-  rideController.getRideById,
-);
 
 route.patch(
   "/:id",
